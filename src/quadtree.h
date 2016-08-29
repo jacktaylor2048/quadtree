@@ -21,7 +21,7 @@ public:
 protected:
 	void split();
 	void clear();
-	bool contains();
+	bool contains(Entity* ent);
 	bool leaf();
 	// The maximum number of "levels", i.e. the amount of times the quadtree may split.
 	static const int MAX_LEVEL = 5;
