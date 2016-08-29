@@ -10,6 +10,13 @@ public:
 	Entity();
 	Entity(float px, float py, float bx, float by);
 	Entity(float px, float py, float bx, float by, float ox, float oy);
+	bool check_collision(Entity* ent);
+	float get_position_x();
+	float get_position_y();
+	float get_boundary_x();
+	float get_boundary_y();
+	float get_offset_x();
+	float get_offset_y();
 protected:
 	// The entity's position in the window.
 	float position_x;
