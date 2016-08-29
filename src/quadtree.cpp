@@ -48,15 +48,22 @@ void Quadtree<T>::collisions()
 		}
 	}
 }
+// Add an object to the vector.
 template <typename T>
 void Quadtree<T>::add(T* ent)
 {
 	objects.push_back(ent);
 }
+// Recursive function to assign entities to their appropriate nodes.
 template <typename T>
 void Quadtree<T>::partition()
 {
-
+	if (objects.size() > max_objects && level < MAX_LEVEL) split();
+	if (!leaf())
+	{
+		for (auto& i : objects) for (int x = 0; x < 4; x++) if (child[x]->contains(i)) child[x]->add(i);
+		for (int i = 0; i < 4; i++) child[i]->partition();
+	}
 }
 template <typename T>
 void Quadtree<T>::cleanup()
