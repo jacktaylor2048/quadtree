@@ -65,10 +65,16 @@ void Quadtree<T>::partition()
 		for (int i = 0; i < 4; i++) child[i]->partition();
 	}
 }
+// Clear the whole quadtree.
 template <typename T>
 void Quadtree<T>::cleanup()
 {
-
+	for (spritevector::iterator i = sprites.begin(); i != sprites.end();)
+	{
+		delete (*i);
+		i = sprites.erase(i);
+	}
+	clear();
 }
 // Create four equally sized child nodes.
 template <typename T>
