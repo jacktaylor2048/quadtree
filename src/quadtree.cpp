@@ -1,7 +1,7 @@
 #include "quadtree.h"
 // Constructor
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
-Quadtree::Quadtree(int level, float position_x, float position_y, int width, int height)
+template <typename T>
+Quadtree<T>::Quadtree(int level, float position_x, float position_y, int width, int height)
 {
 	max_objects = 50;
 	if (level <= MAX_LEVEL) Quadtree::level = level;
@@ -13,53 +13,62 @@ Quadtree::Quadtree(int level, float position_x, float position_y, int width, int
 	for (int i = 0; i < 4; i++) child[i] = NULL;
 	objects.reserve(4096);
 }
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
-Quadtree::~Quadtree()
+// Destructor
+template <typename T>
+Quadtree<T>::~Quadtree()
+{
+	if (level == 0)
+	{
+		for (std::vector<T*>::iterator i = objects.begin(); i != objects.end();)
+		{
+			delete (*i);
+			i = objects.erase(i);
+		}
+	}
+	else objects.clear();
+}
+template <typename T>
+void Quadtree<T>::update()
 {
 
 }
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
-void Quadtree::update()
+template <typename T>
+void Quadtree<T>::collisions()
 {
 
 }
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
-void Quadtree::collisions()
+template <typename T>
+void Quadtree<T>::add()
 {
 
 }
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
-void Quadtree::add()
+template <typename T>
+void Quadtree<T>::partition()
 {
 
 }
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
-void Quadtree::partition()
+template <typename T>
+void Quadtree<T>::cleanup()
 {
 
 }
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
-void Quadtree::cleanup()
+template <typename T>
+void Quadtree<T>::split()
 {
 
 }
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
-void Quadtree::split()
+template <typename T>
+void Quadtree<T>::clear()
 {
 
 }
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
-void Quadtree::clear()
+template <typename T>
+bool Quadtree<T>::contains()
 {
 
 }
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
-bool Quadtree::contains()
-{
-
-}
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
-bool Quadtree::leaf()
+template <typename T>
+bool Quadtree<T>::leaf()
 {
 
 }

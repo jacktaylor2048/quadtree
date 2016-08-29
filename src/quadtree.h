@@ -7,7 +7,7 @@
  * allowing for faster collision detection. Each instance of this class represents a node 
  * of a quadtree, since nodes are quadtrees themselves.
  */
-template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
+template <typename T>
 class Quadtree
 {
 public:
@@ -36,7 +36,7 @@ protected:
 	int width;
 	int height;
 	// Object vector
-	std::vector<T> objects;
+	std::vector<T*> objects;
 	// Pointers to the children of this node.
 	Quadtree* child[4];
 };

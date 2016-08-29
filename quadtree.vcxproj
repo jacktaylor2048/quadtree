@@ -110,6 +110,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\entity.h" />
+    <ClInclude Include="src\quadtree.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\entity.cpp" />
+    <ClCompile Include="src\quadtree.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
