@@ -15,13 +15,13 @@ public:
 	~Quadtree();
 	void update();
 	void collisions();
-	void add(T* ent);
+	void add(T ent);
 	void partition();
 	void cleanup();
 protected:
 	void split();
 	void clear();
-	bool contains(Entity* ent);
+	bool contains(T ent);
 	bool leaf();
 	// The maximum number of "levels", i.e. the amount of times the quadtree may split.
 	static const int MAX_LEVEL = 5;
@@ -35,7 +35,7 @@ protected:
 	// The size of this node. The root should have a size equal to that of the window.
 	int width;
 	int height;
-	// Object vector
+	// Object vector. Pointers are necessary to prevent entity duplication across children.
 	std::vector<T*> objects;
 	// Pointers to the children of this node.
 	Quadtree* child[4];

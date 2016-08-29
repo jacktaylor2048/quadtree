@@ -49,7 +49,7 @@ void Quadtree<T>::collisions()
 }
 // Add an object to the vector.
 template <typename T>
-void Quadtree<T>::add(T* ent)
+void Quadtree<T>::add(T ent)
 {
 	objects.push_back(ent);
 }
@@ -97,7 +97,7 @@ void Quadtree<T>::clear()
 }
 // Check whether this node contains the specified entity.
 template <typename T>
-bool Quadtree<T>::contains(Entity* ent)
+bool Quadtree<T>::contains(T ent)
 {
 	return position_x <= ent->get_x() + ent->get_bx() + ent->get_ox()
 		&& position_x + width >= ent->get_x() + ent->get_ox()
