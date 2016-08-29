@@ -63,17 +63,27 @@ void Quadtree<T>::cleanup()
 {
 
 }
+// Create four equally sized child nodes.
 template <typename T>
 void Quadtree<T>::split()
 {
-
+	child[0] = new Quadtree(level + 1, position_x, position_y, width * 0.5, height * 0.5);
+	child[1] = new Quadtree(level + 1, position_x + width * 0.5, position_y, width * 0.5, height * 0.5);
+	child[2] = new Quadtree(level + 1, position_x, position_y + height * 0.5, width * 0.5, height * 0.5);
+	child[3] = new Quadtree(level + 1, position_x + width * 0.5, position_y + height * 0.5, width * 0.5, height * 0.5);
 }
+// Clear this node's children.
 template <typename T>
 void Quadtree<T>::clear()
 {
-
+	if (!leaf()) for (int i = 0; i < 4; i++)
+	{
+		child[i]->clear();
+		delete child[i];
+		child[i] = NULL;
+	}
 }
-// Check whether this node contains the specified entity
+// Check whether this node contains the specified entity.
 template <typename T>
 bool Quadtree<T>::contains(Entity* ent)
 {
@@ -83,6 +93,7 @@ bool Quadtree<T>::contains(Entity* ent)
 		&& position_y + height >= ent->get_y() + ent->get_oy();
 
 }
+// Check whether this is a leaf node (i.e. it has no children).
 template <typename T>
 bool Quadtree<T>::leaf()
 {
