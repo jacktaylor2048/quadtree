@@ -11,7 +11,7 @@ template <typename T>
 class Quadtree
 {
 public:
-	Quadtree(int level, float position_x, float position_y, int width, int height);
+	Quadtree(int level, float px, float py, int width, int height);
 	~Quadtree();
 	void update();
 	void collisions();

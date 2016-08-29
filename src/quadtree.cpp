@@ -1,15 +1,10 @@
 #include "quadtree.h"
 // Constructor
 template <typename T>
-Quadtree<T>::Quadtree(int level, float position_x, float position_y, int width, int height)
+Quadtree<T>::Quadtree(int level, float px, float py, int width, int height) : level(level), position_x(px), position_y(py), width(width), height(height)
 {
 	max_objects = 50;
-	if (level <= MAX_LEVEL) Quadtree::level = level;
-	else Quadtree::level = MAX_LEVEL;
-	Quadtree::position_x = position_x;
-	Quadtree::position_y = position_y;
-	Quadtree::width = width;
-	Quadtree::height = height;
+	if (level > MAX_LEVEL) Quadtree::level = MAX_LEVEL;
 	for (int i = 0; i < 4; i++) child[i] = NULL;
 	objects.reserve(4096);
 }
