@@ -111,4 +111,5 @@ bool Quadtree<T>::leaf()
 {
 	return child[0] == NULL && child[1] == NULL && child[2] == NULL && child[3] == NULL;
 }
+// Concrete definition to use Entity. Change this if a different class will be used.
 template class Quadtree<Entity>;
