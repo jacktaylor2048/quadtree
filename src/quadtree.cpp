@@ -27,10 +27,14 @@ Quadtree<T>::~Quadtree()
 	}
 	else objects.clear();
 }
+// Perform update routine. This would be called any time you need to detect collisions, usually every frame.
 template <typename T>
 void Quadtree<T>::update()
 {
-
+	partition();
+	if (leaf()) collisions();
+	else for (int i = 0; i < 4; i++) child[i]->collisions();
+	clear();
 }
 // Perform collision detection on all objects in this node.
 template <typename T>
