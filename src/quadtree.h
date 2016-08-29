@@ -1,11 +1,13 @@
 #ifndef QUADTREE_H
 #define QUADTREE_H
 #include <vector>
+#include "entity.h"
 /*
  * A generic Quadtree class. This will perform spatial partitioning on a vector of objects, 
  * allowing for faster collision detection. Each instance of this class represents a node 
  * of a quadtree, since nodes are quadtrees themselves.
  */
+template <typename T, typename std::enable_if<std::is_base_of<Entity, T>::value>>
 class Quadtree
 {
 public:
@@ -33,8 +35,8 @@ protected:
 	// The size of this node. The root should have a size equal to that of the window.
 	int width;
 	int height;
-	// int is a placeholder; this will be changed to a generic type
-	std::vector<int> objects;
+	// Object vector
+	std::vector<T> objects;
 	// Pointers to the children of this node.
 	Quadtree* child[4];
 };
