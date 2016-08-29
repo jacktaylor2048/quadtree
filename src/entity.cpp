@@ -37,6 +37,11 @@ bool Entity::check_collision(Entity* ent)
 		&& position_y + boundary_y + offset_y > ent->get_position_y() + ent->get_offset_y()
 		&& position_y + offset_y < ent->get_position_y() + ent->get_boundary_y() + ent->get_offset_y();
 }
+// Virtual method; inherited classes would define collision behaviour here.
+void Entity::collide(Entity* ent)
+{
+
+}
 float Entity::get_position_x()
 {
 	return position_x;

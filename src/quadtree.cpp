@@ -32,10 +32,21 @@ void Quadtree<T>::update()
 {
 
 }
+// Perform collision detection on all objects in this node.
 template <typename T>
 void Quadtree<T>::collisions()
 {
-
+	for (auto& i : objects)
+	{
+		for (auto& i2 : sprites)
+		{
+			if (i->check_collision(i2))
+			{
+				i->collide(i2);
+				i2->collide(i);
+			}
+		}
+	}
 }
 template <typename T>
 void Quadtree<T>::add()
