@@ -2,7 +2,7 @@
 #define ENTITY_H
 /*
  * Base class for entities which may be used for the quadtree. The quadtree's objects must have 
- * the attributes and methods necessary for collision detection.
+ * the attributes and methods necessary for collision detection, as defined below.
  */
 class Entity
 {
