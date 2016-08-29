@@ -13,7 +13,7 @@ Quadtree<T>::Quadtree(int level, float position_x, float position_y, int width, 
 	for (int i = 0; i < 4; i++) child[i] = NULL;
 	objects.reserve(4096);
 }
-// Destructor
+// Destructor 
 template <typename T>
 Quadtree<T>::~Quadtree()
 {
