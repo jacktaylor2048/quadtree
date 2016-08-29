@@ -259,6 +259,4 @@ paket-files/
 __pycache__/
 *.pyc
 
-.vcxproj
-.vcxproj.filters
-.vcxproj.user
+*.vcxproj
