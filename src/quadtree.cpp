@@ -49,9 +49,9 @@ void Quadtree<T>::collisions()
 	}
 }
 template <typename T>
-void Quadtree<T>::add()
+void Quadtree<T>::add(T* ent)
 {
-
+	objects.push_back(ent);
 }
 template <typename T>
 void Quadtree<T>::partition()

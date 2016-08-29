@@ -15,7 +15,7 @@ public:
 	~Quadtree();
 	void update();
 	void collisions();
-	void add();
+	void add(T* ent);
 	void partition();
 	void cleanup();
 protected:
