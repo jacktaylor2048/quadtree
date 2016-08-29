@@ -8,25 +8,25 @@ class Entity
 {
 public:
 	Entity();
-	Entity(float px, float py, float bx, float by);
-	Entity(float px, float py, float bx, float by, float ox, float oy);
+	Entity(double px, double py, double bx, double by);
+	Entity(double px, double py, double bx, double by, double ox, double oy);
 	bool check_collision(Entity* ent);
 	virtual void collide(Entity* ent);
-	float get_position_x();
-	float get_position_y();
-	float get_boundary_x();
-	float get_boundary_y();
-	float get_offset_x();
-	float get_offset_y();
+	double get_position_x();
+	double get_position_y();
+	double get_boundary_x();
+	double get_boundary_y();
+	double get_offset_x();
+	double get_offset_y();
 protected:
 	// The entity's position in the window.
-	float position_x;
-	float position_y;
+	double position_x;
+	double position_y;
 	// The size of the entity's hitbox.
-	float boundary_x;
-	float boundary_y;
+	double boundary_x;
+	double boundary_y;
 	// The distance of the hitbox from the entity's defined position.
-	float offset_x;
-	float offset_y;
+	double offset_x;
+	double offset_y;
 };
 #endif

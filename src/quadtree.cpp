@@ -1,7 +1,8 @@
 #include "quadtree.h"
+#include "entity.h"
 // Constructor
 template <typename T>
-Quadtree<T>::Quadtree(int level, float px, float py, int width, int height) : level(level), position_x(px), position_y(py), width(width), height(height)
+Quadtree<T>::Quadtree(int level, double px, double py, double width, double height) : level(level), position_x(px), position_y(py), width(width), height(height)
 {
 	max_objects = 50;
 	if (level > MAX_LEVEL) Quadtree::level = MAX_LEVEL;
@@ -37,7 +38,7 @@ void Quadtree<T>::collisions()
 {
 	for (auto& i : objects)
 	{
-		for (auto& i2 : sprites)
+		for (auto& i2 : objects)
 		{
 			if (i->check_collision(i2))
 			{
@@ -49,7 +50,7 @@ void Quadtree<T>::collisions()
 }
 // Add an object to the vector.
 template <typename T>
-void Quadtree<T>::add(T ent)
+void Quadtree<T>::add(T* ent)
 {
 	objects.push_back(ent);
 }
@@ -68,10 +69,10 @@ void Quadtree<T>::partition()
 template <typename T>
 void Quadtree<T>::cleanup()
 {
-	for (spritevector::iterator i = sprites.begin(); i != sprites.end();)
+	for (std::vector<T*>::iterator i = objects.begin(); i != objects.end();)
 	{
 		delete (*i);
-		i = sprites.erase(i);
+		i = objects.erase(i);
 	}
 	clear();
 }
@@ -97,13 +98,12 @@ void Quadtree<T>::clear()
 }
 // Check whether this node contains the specified entity.
 template <typename T>
-bool Quadtree<T>::contains(T ent)
+bool Quadtree<T>::contains(T* ent)
 {
-	return position_x <= ent->get_x() + ent->get_bx() + ent->get_ox()
-		&& position_x + width >= ent->get_x() + ent->get_ox()
-		&& position_y <= ent->get_y() + ent->get_by() + ent->get_oy()
-		&& position_y + height >= ent->get_y() + ent->get_oy();
-
+	return position_x <= ent->get_position_x() + ent->get_boundary_x() + ent->get_offset_x()
+		&& position_x + width >= ent->get_position_x() + ent->get_offset_x()
+		&& position_y <= ent->get_position_y() + ent->get_boundary_y() + ent->get_offset_y()
+		&& position_y + height >= ent->get_position_y() + ent->get_offset_y();
 }
 // Check whether this is a leaf node (i.e. it has no children).
 template <typename T>
@@ -111,3 +111,4 @@ bool Quadtree<T>::leaf()
 {
 	return child[0] == NULL && child[1] == NULL && child[2] == NULL && child[3] == NULL;
 }
+template class Quadtree<Entity>;
