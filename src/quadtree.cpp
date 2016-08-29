@@ -73,13 +73,18 @@ void Quadtree<T>::clear()
 {
 
 }
+// Check whether this node contains the specified entity
 template <typename T>
-bool Quadtree<T>::contains()
+bool Quadtree<T>::contains(Entity* ent)
 {
+	return position_x <= ent->get_x() + ent->get_bx() + ent->get_ox()
+		&& position_x + width >= ent->get_x() + ent->get_ox()
+		&& position_y <= ent->get_y() + ent->get_by() + ent->get_oy()
+		&& position_y + height >= ent->get_y() + ent->get_oy();
 
 }
 template <typename T>
 bool Quadtree<T>::leaf()
 {
-
+	return child[0] == NULL && child[1] == NULL && child[2] == NULL && child[3] == NULL;
 }
