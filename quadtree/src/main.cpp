@@ -1,6 +1,7 @@
 #include <iostream>
 #include "entity.h"
 #include "quadtree.h"
+// Main Function - initialises a quadtree and updates it.
 int main()
 {
 	Quadtree<Entity> tree = Quadtree<Entity>(0, 0, 0, 128, 128);
