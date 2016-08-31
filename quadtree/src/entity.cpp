@@ -18,6 +18,12 @@ Entity::Entity(double px, double py, double bx, double by, double ox, double oy)
 	
 }
 
+// Virtual method; sub-classes would define update behaviour per frame here.
+void Entity::update()
+{
+
+}
+
 // Return true if this entity is colliding with other entity
 bool Entity::check_collision(Entity* ent)
 {
@@ -27,7 +33,7 @@ bool Entity::check_collision(Entity* ent)
 		&& position_y + offset_y < ent->get_position_y() + ent->get_boundary_y() + ent->get_offset_y();
 }
 
-// Virtual method; inherited classes would define collision behaviour here.
+// Virtual method; sub classes would define collision behaviour here.
 void Entity::collide(Entity* ent)
 {
 

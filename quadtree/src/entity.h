@@ -11,6 +11,7 @@ public:
 	Entity();
 	Entity(double px, double py, double bx, double by);
 	Entity(double px, double py, double bx, double by, double ox, double oy);
+	virtual void update();
 	bool check_collision(Entity* ent);
 	virtual void collide(Entity* ent);
 	double get_position_x();
