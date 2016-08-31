@@ -73,6 +73,7 @@ void Quadtree<T>::update()
 	partition();
 	if (leaf()) collisions();
 	else for (int i = 0; i < 4; i++) child[i]->collisions();
+	for (T* i : objects) i->update();
 	clear();
 }
 
