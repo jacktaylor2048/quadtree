@@ -1,8 +1,10 @@
 #include <iostream>
 #include "entity.h"
 #include "quadtree.h"
+
 const int SCREEN_W = 512;
 const int SCREEN_H = 512;
+
 // Example subclass of Entity.
 class Square : public Entity
 {
@@ -12,6 +14,7 @@ public:
 
 	}
 };
+
 // Main Function - initialises a quadtree and updates it.
 int main()
 {
