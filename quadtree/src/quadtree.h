@@ -1,6 +1,8 @@
 #ifndef QUADTREE_H
 #define QUADTREE_H
+
 #include <vector>
+
 /*
 * A generic Quadtree class. This will perform spatial partitioning on a vector of objects,
 * allowing for faster collision detection. Each instance of this class represents a node
