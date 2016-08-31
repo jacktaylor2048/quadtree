@@ -25,7 +25,7 @@ protected:
 	// The maximum number of "levels", i.e. the amount of times the quadtree may split.
 	static const int MAX_LEVEL = 5;
 	// The maximum number of objects before the quadtree will split.
-	unsigned int max_objects;
+	static const int MAX_OBJECTS = 50;
 	// The current level of this particular quadtree node. The root is at level 0.
 	int level;
 	// The position of this node. The root should have a position of 0, 0.
@@ -37,6 +37,6 @@ protected:
 	// Object vector. Pointers are necessary to prevent entity duplication across children.
 	std::vector<T*> objects;
 	// Pointers to the children of this node.
-	Quadtree* child[4];
+	Quadtree<T>* child[4];
 };
 #endif

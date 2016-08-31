@@ -4,7 +4,6 @@
 template <typename T>
 Quadtree<T>::Quadtree(int level, double px, double py, double width, double height) : level(level), position_x(px), position_y(py), width(width), height(height)
 {
-	max_objects = 50;
 	if (level > MAX_LEVEL) Quadtree::level = MAX_LEVEL;
 	for (int i = 0; i < 4; i++) child[i] = NULL;
 	objects.reserve(4096);
@@ -58,7 +57,7 @@ void Quadtree<T>::add(T* ent)
 template <typename T>
 void Quadtree<T>::partition()
 {
-	if (objects.size() > max_objects && level < MAX_LEVEL) split();
+	if (objects.size() > MAX_OBJECTS && level < MAX_LEVEL) split();
 	if (!leaf())
 	{
 		for (auto& i : objects) for (int x = 0; x < 4; x++) if (child[x]->contains(i)) child[x]->add(i);
