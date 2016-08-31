@@ -19,6 +19,10 @@ public:
 int main()
 {
 	Quadtree<Square> square_tree = Quadtree<Square>(0, 0, 0, SCREEN_W, SCREEN_H);
+	/* 
+	 * This adds 120 Squares to the quadtree. The positioning will cause the quadtree to split, then cause the
+	 * upper left quadrant to split again.
+	 */
 	for (int i = 0; i < 30; i++) for (int j = 0; j < 4; j++) square_tree.add(new Square(4 + i * 12, 4 + j * 12, 4, 4));
 	square_tree.update();
 	std::cin.get();
