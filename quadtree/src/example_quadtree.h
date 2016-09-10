@@ -11,14 +11,18 @@ template<typename T>
 class ExampleQuadtree : public Quadtree<T>
 {
 public:
-	ExampleQuadtree()
-	{
-
-	}
+	ExampleQuadtree(int level, double px, double py, double width, double height);
 	void collisions();
 private:
 	void contains(T* obj);
 };
+
+// Constructor
+template<typename T>
+ExampleQuadtree<T>::ExampleQuadtree(int level, double px, double py, double width, double height) : Quadtree<T>(level, px, py, width, height)
+{
+
+}
 
 // Perform collision detection on all objects in this node.
 template<typename T>
