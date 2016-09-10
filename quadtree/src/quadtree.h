@@ -141,10 +141,7 @@ void Quadtree<T>::clear()
 template <typename T>
 bool Quadtree<T>::contains(T* ent)
 {
-	return position_x <= ent->get_position_x() + ent->get_boundary_x() + ent->get_offset_x()
-		&& position_x + width >= ent->get_position_x() + ent->get_offset_x()
-		&& position_y <= ent->get_position_y() + ent->get_boundary_y() + ent->get_offset_y()
-		&& position_y + height >= ent->get_position_y() + ent->get_offset_y();
+	
 }
 
 // Check whether this is a leaf node (i.e. it has no children).
