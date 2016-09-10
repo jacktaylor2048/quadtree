@@ -15,14 +15,14 @@ public:
 	Quadtree(int level, double px, double py, double width, double height);
 	~Quadtree();
 	void update();
-	void collisions();
+	virtual void collisions();
 	void add(T* ent);
 	void partition();
 	void cleanup();
 protected:
 	void split();
 	void clear();
-	bool contains(T* ent);
+	virtual bool contains(T* ent);
 	bool leaf();
 	// The maximum number of "levels", i.e. the amount of times the quadtree may split.
 	static const int MAX_LEVEL = 5;
