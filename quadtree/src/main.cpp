@@ -5,40 +5,7 @@
 const int SCREEN_W = 512;
 const int SCREEN_H = 512;
 
-// Example implementation of Quadtree
-template<typename T>
-class ExampleQuadtree<T> : public Quadtree<T>
-{
-public:
-	ExampleQuadtree()
-	{
-
-	}
-	void collisions()
-	{
-		for (T* i : objects)
-		{
-			for (T* i2 : objects)
-			{
-				if (i->check_collision(i2))
-				{
-					i->collide(i2);
-					i2->collide(i);
-				}
-			}
-		}
-	}
-private:
-	void contains(T* obj)
-	{
-		return position_x <= obj->get_position_x() + obj->get_boundary_x() + obj->get_offset_x()
-			&& position_x + width >= obj->get_position_x() + obj->get_offset_x()
-			&& position_y <= obj->get_position_y() + obj->get_boundary_y() + obj->get_offset_y()
-			&& position_y + height >= obj->get_position_y() + obj->get_offset_y();
-	}
-};
-
-// Example subclass of objity.
+// Example subclass of ExampleEntity.
 class Square : public ExampleEntity
 {
 public:

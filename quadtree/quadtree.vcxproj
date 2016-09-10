@@ -111,6 +111,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\example_entity.h" />
+    <ClInclude Include="src\example_quadtree.h" />
     <ClInclude Include="src\quadtree.h" />
   </ItemGroup>
   <ItemGroup>
