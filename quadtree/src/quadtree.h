@@ -16,13 +16,13 @@ public:
 	~Quadtree();
 	void update();
 	virtual void collisions();
-	void add(T* ent);
+	void add(T* obj);
 	void partition();
 	void cleanup();
 protected:
 	void split();
 	void clear();
-	virtual bool contains(T* ent);
+	virtual bool contains(T* obj);
 	bool leaf();
 	// The maximum number of "levels", i.e. the amount of times the quadtree may split.
 	static const int MAX_LEVEL = 5;
@@ -86,9 +86,9 @@ void Quadtree<T>::collisions()
 
 // Add an object to the vector.
 template <typename T>
-void Quadtree<T>::add(T* ent)
+void Quadtree<T>::add(T* obj)
 {
-	objects.push_back(ent);
+	objects.push_back(obj);
 }
 
 // Recursive function to assign entities to their appropriate nodes.
@@ -139,7 +139,7 @@ void Quadtree<T>::clear()
 
 // Check whether this node contains the specified entity.
 template <typename T>
-bool Quadtree<T>::contains(T* ent)
+bool Quadtree<T>::contains(T* obj)
 {
 	
 }
