@@ -8,7 +8,7 @@
  * of the methods provided by ExampleEntity.
  */
 template<typename T>
-class ExampleQuadtree<T> : public Quadtree<T>
+class ExampleQuadtree : public Quadtree<T>
 {
 public:
 	ExampleQuadtree()
@@ -22,7 +22,7 @@ private:
 
 // Perform collision detection on all objects in this node.
 template<typename T>
-void ExampleQuadtree::collisions()
+void ExampleQuadtree<T>::collisions()
 {
 	for (T* i : objects)
 	{
@@ -39,7 +39,7 @@ void ExampleQuadtree::collisions()
 
 // Check whether this node contains the specified object.
 template<typename T>
-void ExampleQuadtree::contains(T* obj)
+void ExampleQuadtree<T>::contains(T* obj)
 {
 	return position_x <= obj->get_position_x() + obj->get_boundary_x() + obj->get_offset_x()
 		&& position_x + width >= obj->get_position_x() + obj->get_offset_x()
