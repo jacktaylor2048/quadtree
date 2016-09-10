@@ -16,7 +16,17 @@ public:
 	}
 	void collisions()
 	{
-
+		for (T* i : objects)
+		{
+			for (T* i2 : objects)
+			{
+				if (i->check_collision(i2))
+				{
+					i->collide(i2);
+					i2->collide(i);
+				}
+			}
+		}
 	}
 private:
 	void contains(T* obj)

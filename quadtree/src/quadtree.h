@@ -81,17 +81,7 @@ void Quadtree<T>::update()
 template <typename T>
 void Quadtree<T>::collisions()
 {
-	for (T* i : objects)
-	{
-		for (T* i2 : objects)
-		{
-			if (i->check_collision(i2))
-			{
-				i->collide(i2);
-				i2->collide(i);
-			}
-		}
-	}
+	
 }
 
 // Add an object to the vector.
