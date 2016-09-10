@@ -4,7 +4,7 @@
 #include <vector>
 
 /*
-* A generic Quadtree class. This will perform spatial partitioning on a vector of objects,
+* A template Quadtree class. This will perform spatial partitioning on a vector of objects,
 * allowing for faster collision detection. Each instance of this class represents a node
 * of a quadtree, since nodes are quadtrees themselves.
 */
@@ -15,19 +15,23 @@ public:
 	Quadtree(int level, double px, double py, double width, double height);
 	~Quadtree();
 	void update();
-	void collisions();
-	void add(T* ent);
-	void partition();
-	void cleanup();
+	void add(T* obj);
 protected:
-	void split();
+	void partition();
+	virtual void split();
+	virtual bool contains(T* obj);
+	virtual void collisions();
 	void clear();
-	bool contains(T* ent);
+	void cleanup();
 	bool leaf();
-	// The maximum number of "levels", i.e. the amount of times the quadtree may split.
+	/*
+	 * MAX_LEVEL: The maximum number of "levels", i.e. the amount of times the quadtree may split.
+	 * MAX_OBJECTS: The maximum number of objects before the quadtree will split.
+	 * RESERVED_OBJECTS: The number of objects to reserve in the vector
+	 */
 	static const int MAX_LEVEL = 5;
-	// The maximum number of objects before the quadtree will split.
 	static const int MAX_OBJECTS = 50;
+	static const int RESERVED_OBJECTS = 4096;
 	// The current level of this particular quadtree node. The root is at level 0.
 	int level;
 	// The position of this node. The root should have a position of 0, 0.
@@ -36,9 +40,7 @@ protected:
 	// The size of this node. The root should have a size equal to that of the window.
 	double width;
 	double height;
-	// Object vector. Pointers are necessary to prevent entity duplication across children.
 	std::vector<T*> objects;
-	// Pointers to the children of this node.
 	Quadtree<T>* child[4];
 };
 
@@ -48,7 +50,7 @@ Quadtree<T>::Quadtree(int level, double px, double py, double width, double heig
 {
 	if (level > MAX_LEVEL) Quadtree::level = MAX_LEVEL;
 	for (int i = 0; i < 4; i++) child[i] = NULL;
-	objects.reserve(4096);
+	objects.reserve(RESERVED_OBJECTS);
 }
 
 // Destructor
@@ -77,28 +79,11 @@ void Quadtree<T>::update()
 	clear();
 }
 
-// Perform collision detection on all objects in this node.
-template <typename T>
-void Quadtree<T>::collisions()
-{
-	for (T* i : objects)
-	{
-		for (T* i2 : objects)
-		{
-			if (i->check_collision(i2))
-			{
-				i->collide(i2);
-				i2->collide(i);
-			}
-		}
-	}
-}
-
 // Add an object to the vector.
 template <typename T>
-void Quadtree<T>::add(T* ent)
+void Quadtree<T>::add(T* obj)
 {
-	objects.push_back(ent);
+	objects.push_back(obj);
 }
 
 // Recursive function to assign entities to their appropriate nodes.
@@ -113,18 +98,6 @@ void Quadtree<T>::partition()
 	}
 }
 
-// Clear the whole quadtree.
-template <typename T>
-void Quadtree<T>::cleanup()
-{
-	for (std::vector<T*>::iterator i = objects.begin(); i != objects.end();)
-	{
-		delete (*i);
-		i = objects.erase(i);
-	}
-	clear();
-}
-
 // Create four equally sized child nodes.
 template <typename T>
 void Quadtree<T>::split()
@@ -133,6 +106,20 @@ void Quadtree<T>::split()
 	child[1] = new Quadtree<T>(level + 1, position_x + width * 0.5, position_y, width * 0.5, height * 0.5);
 	child[2] = new Quadtree<T>(level + 1, position_x, position_y + height * 0.5, width * 0.5, height * 0.5);
 	child[3] = new Quadtree<T>(level + 1, position_x + width * 0.5, position_y + height * 0.5, width * 0.5, height * 0.5);
+}
+
+// Check whether this node contains the specified object.
+template <typename T>
+bool Quadtree<T>::contains(T* obj)
+{
+	return false;
+}
+
+// Perform collision detection on all objects in this node.
+template <typename T>
+void Quadtree<T>::collisions()
+{
+	
 }
 
 // Clear this node's children.
@@ -147,14 +134,16 @@ void Quadtree<T>::clear()
 	}
 }
 
-// Check whether this node contains the specified entity.
+// Clear the whole quadtree.
 template <typename T>
-bool Quadtree<T>::contains(T* ent)
+void Quadtree<T>::cleanup()
 {
-	return position_x <= ent->get_position_x() + ent->get_boundary_x() + ent->get_offset_x()
-		&& position_x + width >= ent->get_position_x() + ent->get_offset_x()
-		&& position_y <= ent->get_position_y() + ent->get_boundary_y() + ent->get_offset_y()
-		&& position_y + height >= ent->get_position_y() + ent->get_offset_y();
+	for (std::vector<T*>::iterator i = objects.begin(); i != objects.end();)
+	{
+		delete (*i);
+		i = objects.erase(i);
+	}
+	clear();
 }
 
 // Check whether this is a leaf node (i.e. it has no children).
