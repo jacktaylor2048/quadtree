@@ -28,6 +28,8 @@ protected:
 	static const int MAX_LEVEL = 5;
 	// The maximum number of objects before the quadtree will split.
 	static const int MAX_OBJECTS = 50;
+	// The number of objects to reserve in the vector
+	static const int RESERVED_OBJECTS = 4096;
 	// The current level of this particular quadtree node. The root is at level 0.
 	int level;
 	// The position of this node. The root should have a position of 0, 0.
@@ -48,7 +50,7 @@ Quadtree<T>::Quadtree(int level, double px, double py, double width, double heig
 {
 	if (level > MAX_LEVEL) Quadtree::level = MAX_LEVEL;
 	for (int i = 0; i < 4; i++) child[i] = NULL;
-	objects.reserve(4096);
+	objects.reserve(RESERVED_OBJECTS);
 }
 
 // Destructor
