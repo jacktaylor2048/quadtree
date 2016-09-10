@@ -15,20 +15,22 @@ public:
 	Quadtree(int level, double px, double py, double width, double height);
 	~Quadtree();
 	void update();
-	virtual void collisions();
 	void add(T* obj);
-	void partition();
-	void cleanup();
 protected:
+	void partition();
 	virtual void split();
-	void clear();
 	virtual bool contains(T* obj);
+	virtual void collisions();
+	void clear();
+	void cleanup();
 	bool leaf();
-	// The maximum number of "levels", i.e. the amount of times the quadtree may split.
+	/*
+	 * MAX_LEVEL: The maximum number of "levels", i.e. the amount of times the quadtree may split.
+	 * MAX_OBJECTS: The maximum number of objects before the quadtree will split.
+	 * RESERVED_OBJECTS: The number of objects to reserve in the vector
+	 */
 	static const int MAX_LEVEL = 5;
-	// The maximum number of objects before the quadtree will split.
 	static const int MAX_OBJECTS = 50;
-	// The number of objects to reserve in the vector
 	static const int RESERVED_OBJECTS = 4096;
 	// The current level of this particular quadtree node. The root is at level 0.
 	int level;
@@ -38,9 +40,7 @@ protected:
 	// The size of this node. The root should have a size equal to that of the window.
 	double width;
 	double height;
-	// Object vector. Pointers are necessary to prevent entity duplication across children.
 	std::vector<T*> objects;
-	// Pointers to the children of this node.
 	Quadtree<T>* child[4];
 };
 
@@ -79,13 +79,6 @@ void Quadtree<T>::update()
 	clear();
 }
 
-// Perform collision detection on all objects in this node.
-template <typename T>
-void Quadtree<T>::collisions()
-{
-	
-}
-
 // Add an object to the vector.
 template <typename T>
 void Quadtree<T>::add(T* obj)
@@ -105,18 +98,6 @@ void Quadtree<T>::partition()
 	}
 }
 
-// Clear the whole quadtree.
-template <typename T>
-void Quadtree<T>::cleanup()
-{
-	for (std::vector<T*>::iterator i = objects.begin(); i != objects.end();)
-	{
-		delete (*i);
-		i = objects.erase(i);
-	}
-	clear();
-}
-
 // Create four equally sized child nodes.
 template <typename T>
 void Quadtree<T>::split()
@@ -125,6 +106,20 @@ void Quadtree<T>::split()
 	child[1] = new Quadtree<T>(level + 1, position_x + width * 0.5, position_y, width * 0.5, height * 0.5);
 	child[2] = new Quadtree<T>(level + 1, position_x, position_y + height * 0.5, width * 0.5, height * 0.5);
 	child[3] = new Quadtree<T>(level + 1, position_x + width * 0.5, position_y + height * 0.5, width * 0.5, height * 0.5);
+}
+
+// Check whether this node contains the specified object.
+template <typename T>
+bool Quadtree<T>::contains(T* obj)
+{
+	return false;
+}
+
+// Perform collision detection on all objects in this node.
+template <typename T>
+void Quadtree<T>::collisions()
+{
+	
 }
 
 // Clear this node's children.
@@ -139,11 +134,16 @@ void Quadtree<T>::clear()
 	}
 }
 
-// Check whether this node contains the specified object.
+// Clear the whole quadtree.
 template <typename T>
-bool Quadtree<T>::contains(T* obj)
+void Quadtree<T>::cleanup()
 {
-	return false;
+	for (std::vector<T*>::iterator i = objects.begin(); i != objects.end();)
+	{
+		delete (*i);
+		i = objects.erase(i);
+	}
+	clear();
 }
 
 // Check whether this is a leaf node (i.e. it has no children).

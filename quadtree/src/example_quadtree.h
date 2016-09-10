@@ -12,10 +12,10 @@ class ExampleQuadtree : public Quadtree<T>
 {
 public:
 	ExampleQuadtree(int level, double px, double py, double width, double height);
-	void collisions();
 private:
 	void split();
 	bool contains(T* obj);
+	void collisions();
 };
 
 // Constructor
@@ -23,23 +23,6 @@ template<typename T>
 ExampleQuadtree<T>::ExampleQuadtree(int level, double px, double py, double width, double height) : Quadtree<T>(level, px, py, width, height)
 {
 	
-}
-
-// Perform collision detection on all objects in this node.
-template<typename T>
-void ExampleQuadtree<T>::collisions()
-{
-	for (T* i : objects)
-	{
-		for (T* i2 : objects)
-		{
-			if (i->check_collision(i2))
-			{
-				i->collide(i2);
-				i2->collide(i);
-			}
-		}
-	}
 }
 
 // Create four equally sized child nodes.
@@ -60,6 +43,23 @@ bool ExampleQuadtree<T>::contains(T* obj)
 		&& position_x + width >= obj->get_position_x() + obj->get_offset_x()
 		&& position_y <= obj->get_position_y() + obj->get_boundary_y() + obj->get_offset_y()
 		&& position_y + height >= obj->get_position_y() + obj->get_offset_y();
+}
+
+// Perform collision detection on all objects in this node.
+template<typename T>
+void ExampleQuadtree<T>::collisions()
+{
+	for (T* i : objects)
+	{
+		for (T* i2 : objects)
+		{
+			if (i->check_collision(i2))
+			{
+				i->collide(i2);
+				i2->collide(i);
+			}
+		}
+	}
 }
 
 #endif
