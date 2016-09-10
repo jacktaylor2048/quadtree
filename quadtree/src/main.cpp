@@ -5,6 +5,26 @@
 const int SCREEN_W = 512;
 const int SCREEN_H = 512;
 
+// Example implementation of Quadtree
+template<typename T>
+class ExampleQuadtree<T> : public Quadtree<T>
+{
+public:
+	ExampleQuadtree()
+	{
+
+	}
+	void collisions()
+	{
+
+	}
+private:
+	void contains(T* obj)
+	{
+
+	}
+};
+
 // Example subclass of Entity.
 class Square : public ExampleEntity
 {
