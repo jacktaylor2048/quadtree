@@ -1,15 +1,15 @@
 #include <iostream>
-#include "entity.h"
+#include "example_entity.h"
 #include "quadtree.h"
 
 const int SCREEN_W = 512;
 const int SCREEN_H = 512;
 
 // Example subclass of Entity.
-class Square : public Entity
+class Square : public ExampleEntity
 {
 public:
-	Square(double px, double py, double bx, double by) : Entity(px, py, bx, by)
+	Square(double px, double py, double bx, double by) : ExampleEntity(px, py, bx, by)
 	{
 
 	}
