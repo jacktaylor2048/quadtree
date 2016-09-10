@@ -20,7 +20,7 @@ public:
 	void partition();
 	void cleanup();
 protected:
-	void split();
+	virtual void split();
 	void clear();
 	virtual bool contains(T* obj);
 	bool leaf();
@@ -143,7 +143,7 @@ void Quadtree<T>::clear()
 template <typename T>
 bool Quadtree<T>::contains(T* obj)
 {
-	
+	return false;
 }
 
 // Check whether this is a leaf node (i.e. it has no children).
