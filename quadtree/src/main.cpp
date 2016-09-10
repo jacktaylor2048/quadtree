@@ -31,14 +31,14 @@ public:
 private:
 	void contains(T* obj)
 	{
-		return position_x <= ent->get_position_x() + ent->get_boundary_x() + ent->get_offset_x()
-			&& position_x + width >= ent->get_position_x() + ent->get_offset_x()
-			&& position_y <= ent->get_position_y() + ent->get_boundary_y() + ent->get_offset_y()
-			&& position_y + height >= ent->get_position_y() + ent->get_offset_y();
+		return position_x <= obj->get_position_x() + obj->get_boundary_x() + obj->get_offset_x()
+			&& position_x + width >= obj->get_position_x() + obj->get_offset_x()
+			&& position_y <= obj->get_position_y() + obj->get_boundary_y() + obj->get_offset_y()
+			&& position_y + height >= obj->get_position_y() + obj->get_offset_y();
 	}
 };
 
-// Example subclass of Entity.
+// Example subclass of objity.
 class Square : public ExampleEntity
 {
 public:
