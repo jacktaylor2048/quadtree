@@ -4,7 +4,7 @@
 #include <vector>
 
 /*
-* A generic Quadtree class. This will perform spatial partitioning on a vector of objects,
+* A template Quadtree class. This will perform spatial partitioning on a vector of objects,
 * allowing for faster collision detection. Each instance of this class represents a node
 * of a quadtree, since nodes are quadtrees themselves.
 */
@@ -139,7 +139,7 @@ void Quadtree<T>::clear()
 	}
 }
 
-// Check whether this node contains the specified entity.
+// Check whether this node contains the specified object.
 template <typename T>
 bool Quadtree<T>::contains(T* obj)
 {
